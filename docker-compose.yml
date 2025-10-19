@@ -1,0 +1,367 @@
+# docker-compose.yml
+# Complete Docker setup for Synchronicity Engine
+
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: syncengine-db
+    environment:
+      POSTGRES_DB: syncengine
+      POSTGRES_USER: syncengine
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U syncengine"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: syncengine-redis
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # Backend API
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: syncengine-api
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://syncengine:${DB_PASSWORD}@postgres:5432/syncengine
+      REDIS_URL: redis://redis:6379
+      SUBSTACK_URL: ${SUBSTACK_URL}
+      WEBHOOK_SECRET: ${WEBHOOK_SECRET}
+      CLOUDINARY_URL: ${CLOUDINARY_URL}
+      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
+      CLOUDINARY_PRESET: ${CLOUDINARY_PRESET}
+      CORS_ORIGIN: ${FRONTEND_URL}
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend (React)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: ${API_URL}
+    container_name: syncengine-frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  # Nginx Reverse Proxy (Optional)
+  nginx:
+    image: nginx:alpine
+    container_name: syncengine-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - api
+      - frontend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+
+---
+# Backend Dockerfile
+# Save as: backend/Dockerfile
+
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production
+
+# Copy source code
+COPY . .
+
+# Expose port
+EXPOSE 3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3000/api/health', (res) => process.exit(res.statusCode === 200 ? 0 : 1))"
+
+# Start application
+CMD ["npm", "start"]
+
+---
+# Frontend Dockerfile
+# Save as: frontend/Dockerfile
+
+FROM node:18-alpine as build
+
+WORKDIR /app
+
+# Build arguments
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Build application
+RUN npm run build
+
+# Production stage with Nginx
+FROM nginx:alpine
+
+# Copy build files
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Copy nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose port
+EXPOSE 80
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
+
+---
+# Nginx Configuration for Frontend
+# Save as: frontend/nginx.conf
+
+server {
+    listen 80;
+    server_name localhost;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # Gzip compression
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml+rss application/json;
+
+    # Cache static assets
+    location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # SPA fallback
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Security headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+}
+
+---
+# Environment Variables Template
+# Save as: .env.example
+
+# Database
+DB_PASSWORD=your_secure_password_here
+
+# Substack Configuration
+SUBSTACK_URL=https://yoursubstack.substack.com
+
+# API Configuration
+API_URL=http://localhost:3000
+FRONTEND_URL=http://localhost
+
+# Security
+WEBHOOK_SECRET=your_webhook_secret_here
+JWT_SECRET=your_jwt_secret_here
+
+# Image Optimization (Cloudinary)
+CLOUDINARY_URL=cloudinary://key:secret@cloud_name
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_PRESET=your_upload_preset
+
+# Redis
+REDIS_URL=redis://redis:6379
+
+# Sync Schedule (cron format)
+SYNC_SCHEDULE=0 * * * *
+
+# Node Environment
+NODE_ENV=production
+
+---
+# Database Initialization Script
+# Save as: init.sql
+
+-- Enable full-text search
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
+-- Create articles table with proper indexes
+CREATE TABLE IF NOT EXISTS articles (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  title VARCHAR(500) NOT NULL,
+  subtitle TEXT,
+  preview TEXT,
+  substack_url VARCHAR(1000) UNIQUE NOT NULL,
+  image_url VARCHAR(1000),
+  optimized_images JSONB,
+  hashtags TEXT[] DEFAULT '{}',
+  published_date TIMESTAMP,
+  raw_content TEXT,
+  views INTEGER DEFAULT 0,
+  likes INTEGER DEFAULT 0,
+  reading_time INTEGER,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Full-text search index
+CREATE INDEX IF NOT EXISTS articles_search_idx 
+ON articles USING GIN (to_tsvector('english', title || ' ' || COALESCE(subtitle, '') || ' ' || COALESCE(preview, '')));
+
+-- Hashtag search index
+CREATE INDEX IF NOT EXISTS articles_hashtags_idx 
+ON articles USING GIN (hashtags);
+
+-- Date index for sorting
+CREATE INDEX IF NOT EXISTS articles_published_date_idx 
+ON articles (published_date DESC);
+
+-- Analytics table
+CREATE TABLE IF NOT EXISTS analytics (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  article_id UUID REFERENCES articles(id) ON DELETE CASCADE,
+  event_type VARCHAR(50) NOT NULL,
+  metadata JSONB,
+  timestamp TIMESTAMP DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS analytics_article_id_idx ON analytics (article_id);
+CREATE INDEX IF NOT EXISTS analytics_timestamp_idx ON analytics (timestamp DESC);
+
+-- Likes table
+CREATE TABLE IF NOT EXISTS likes (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  article_id UUID REFERENCES articles(id) ON DELETE CASCADE,
+  user_id VARCHAR(255),
+  timestamp TIMESTAMP DEFAULT NOW(),
+  UNIQUE(article_id, user_id)
+);
+
+CREATE INDEX IF NOT EXISTS likes_article_id_idx ON likes (article_id);
+
+---
+# Makefile for easy commands
+# Save as: Makefile
+
+.PHONY: help build up down logs clean
+
+help:
+	@echo "Synchronicity Engine - Docker Commands"
+	@echo "======================================="
+	@echo "make build    - Build all containers"
+	@echo "make up       - Start all services"
+	@echo "make down     - Stop all services"
+	@echo "make logs     - View logs"
+	@echo "make clean    - Remove all containers and volumes"
+	@echo "make restart  - Restart all services"
+	@echo "make db-shell - Connect to PostgreSQL"
+	@echo "make api-shell - Connect to API container"
+
+build:
+	docker-compose build
+
+up:
+	docker-compose up -d
+	@echo "Services starting..."
+	@echo "API: http://localhost:3000"
+	@echo "Frontend: http://localhost:80"
+
+down:
+	docker-compose down
+
+logs:
+	docker-compose logs -f
+
+restart:
+	docker-compose restart
+
+clean:
+	docker-compose down -v
+	docker system prune -f
+
+db-shell:
+	docker-compose exec postgres psql -U syncengine -d syncengine
+
+api-shell:
+	docker-compose exec api sh
+
+redis-cli:
+	docker-compose exec redis redis-cli
+
+# Database backup
+backup:
+	docker-compose exec postgres pg_dump -U syncengine syncengine > backup_$(shell date +%Y%m%d_%H%M%S).sql
+
+# Database restore
+restore:
+	docker-compose exec -T postgres psql -U syncengine syncengine < $(file)
+
+# Run migrations
+migrate:
+	docker-compose exec api npm run migrate
+
+# Seed database
+seed:
+	docker-compose exec api npm run seed
+
+# Run tests
+test:
+	docker-compose exec api npm test
