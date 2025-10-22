@@ -1,13 +1,14 @@
 <script>
+    import { goto } from '$app/navigation';
     import { selectedTag, allHashtags, hashtagCounts, articles, filteredArticles } from '$lib/stores/articles';
     import { formatHashtag } from '$lib/utils/formatters';
-    import { fetchHashtagIntro } from '$lib/utils/api';
-    import { hashtagIntro } from '$lib/stores/articles';
 
-    async function handleTagClick(tag) {
-        selectedTag.set(tag);
-        const intro = await fetchHashtagIntro(tag);
-        hashtagIntro.set(intro);
+    function handleTagClick(tag) {
+        if (tag === 'all') {
+            goto('/');
+        } else {
+            goto(`/${tag}`);
+        }
     }
 </script>
 
@@ -20,31 +21,19 @@
         <h2 class="text-xl font-bold text-center cursor-pointer" style="color: #D4AF37; text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);" on:click={() => handleTagClick('all')}>
             Synchronicity Engine
         </h2>
-        <p class="text-sm text-center mt-1" style="color: #84A98C;">Aeon Myths</p>
     </div>
 
     <!-- Hashtag filters -->
     <div class="sidebar-section" style="border-top: 1px solid rgba(212, 175, 55, 0.3);">
-        <label class="text-sm font-medium mb-3 block" style="color: #D4AF37;">Filter by Topic</label>
         {#each $allHashtags as tag}
             <button
                 on:click={() => handleTagClick(tag)}
                 class="tag-button {$selectedTag === tag ? 'active' : ''} px-3 py-2 rounded-lg text-sm font-medium"
                 style="color: #F7F3E9;"
             >
-                {formatHashtag(tag)} ({$hashtagCounts[tag] || 0})
+                {formatHashtag(tag)}
             </button>
         {/each}
-    </div>
-
-    <!-- Stats -->
-    <div class="sidebar-section" style="border-top: 1px solid rgba(212, 175, 55, 0.3);">
-        <label class="text-sm font-medium mb-2 block" style="color: #D4AF37;">Stats</label>
-        <div class="text-xs space-y-1" style="color: #84A98C;">
-            <p>📚 {$articles.length} total articles</p>
-            <p>🏷️ {$allHashtags.length} topics</p>
-            <p>✨ {$filteredArticles.length} showing</p>
-        </div>
     </div>
 </aside>
 
@@ -118,10 +107,6 @@
             margin: 0;
         }
 
-        .logo-container :global(p) {
-            display: none;
-        }
-
         .sidebar-section {
             padding: 0;
             border-top: none !important;
@@ -133,14 +118,6 @@
             flex: 1;
         }
 
-        .sidebar-section :global(label) {
-            display: none;
-        }
-
-        .sidebar-section :global(.text-xs) {
-            display: none;
-        }
-
         .sidebar-section :global(button) {
             transform: none !important;
             width: auto;
@@ -148,11 +125,6 @@
             padding: 0.5rem 1rem !important;
             margin-bottom: 0;
             font-size: 0.875rem;
-        }
-
-        /* Hide stats section on mobile */
-        .sidebar-section:last-child {
-            display: none;
         }
     }
 

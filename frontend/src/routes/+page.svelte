@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    import { articles, allHashtags, isLoading, hashtagIntro } from '$lib/stores/articles';
+    import { articles, allHashtags, isLoading, hashtagIntro, selectedTag } from '$lib/stores/articles';
     import { fetchArticles, fetchHashtags } from '$lib/utils/api';
     import Sidebar from '$lib/components/Sidebar.svelte';
     import TopicIntro from '$lib/components/TopicIntro.svelte';
@@ -15,6 +15,8 @@
             ]);
             articles.set(articlesData);
             allHashtags.set(hashtagsData);
+            selectedTag.set('all');
+            hashtagIntro.set(null);
         } catch (error) {
             console.error('Failed to fetch data:', error);
         } finally {
