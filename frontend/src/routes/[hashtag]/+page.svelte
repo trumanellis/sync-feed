@@ -38,7 +38,7 @@
 
         <!-- Render markdown content if available -->
         {#if data.markdownContent}
-            <div class="markdown-content prose prose-invert max-w-none">
+            <div class="markdown-content topic-intro">
                 {@html data.markdownContent}
             </div>
         {/if}
