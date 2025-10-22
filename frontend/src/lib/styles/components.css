@@ -1,0 +1,67 @@
+/* Card hover effect */
+.card-hover {
+    transition: all 0.3s ease;
+    background: rgba(27, 67, 50, 0.4);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+.card-hover:hover {
+    transform: translateY(-8px);
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.3),
+                0 0 60px rgba(132, 169, 140, 0.2),
+                0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Tag button */
+.tag-button {
+    transition: all 0.2s ease;
+    background: rgba(27, 67, 50, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+    width: 100%;
+    text-align: left;
+    margin-bottom: 0.5rem;
+}
+
+.tag-button:hover {
+    transform: translateX(4px);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    background: rgba(45, 90, 61, 0.6);
+}
+
+.tag-button.active {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+}
+
+/* Image overlay */
+.image-overlay {
+    background: linear-gradient(to top, rgba(10, 14, 20, 0.9), transparent);
+}
+
+/* Hashtag badge */
+.hashtag-badge {
+    background: rgba(212, 175, 55, 0.25);
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* Read more link */
+.read-more-link {
+    color: #D4AF37;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.read-more-link:hover {
+    color: #F4B942;
+    text-shadow: 0 0 20px rgba(244, 185, 66, 0.8);
+}
+
+/* Title glow effect */
+.title-glow:hover {
+    color: #D4AF37;
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+}

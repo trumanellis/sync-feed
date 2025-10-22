@@ -15,7 +15,7 @@
 <div class="md-card-image">
 <div class="md-card-image-wrapper">
 <img src="images/EyesOnGaia.png" alt="Eyes on Gaia">
-<div class="md-card-image-title">2. Focused attention charges them up</div>
+<div class="md-card-image-title">2. Tune Your Attention</div>
 </div>
 <div class="md-card-image-content">
 <div class="md-card-image-text">Focus collective <b>Attention</b> on the most important issues facing your tribe.</div>
