@@ -620,3 +620,10 @@
     color: #84A98C;
     font-style: italic;
 }
+
+/* Images - constrain to container width */
+.topic-html img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
