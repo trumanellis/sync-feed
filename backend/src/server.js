@@ -21,6 +21,10 @@ app.use(express.json());
 const publicPath = path.join(__dirname, '../../public');
 app.use('/images', express.static(path.join(publicPath, 'images')));
 
+// Serve styles directory
+const stylesPath = path.join(__dirname, '../../styles');
+app.use('/styles', express.static(stylesPath));
+
 // Initialize sync engine
 const substackUrl = process.env.SUBSTACK_URL || 'https://yoursubstack.substack.com';
 const syncEngine = new SubstackSyncEngine(substackUrl);
