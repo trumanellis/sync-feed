@@ -29,18 +29,22 @@
 <div class="app-container">
     <Sidebar />
     <main class="main-content">
-        <!-- Render HTML content if available (prioritized over markdown) -->
+        <!-- Render HTML content if available -->
         {#if data.htmlContent}
             <div class="html-content topic-html">
                 {@html data.htmlContent}
             </div>
-        {:else if data.markdownContent}
-            <!-- Render markdown content only if HTML is not available -->
+        {/if}
+
+        <!-- Render markdown content if available -->
+        {#if data.markdownContent}
             <div class="markdown-content topic-intro">
                 {@html data.markdownContent}
             </div>
-        {:else if data.hashtagIntro}
-            <!-- Render legacy topic intro only if neither HTML nor markdown available -->
+        {/if}
+
+        <!-- Render legacy topic intro if available -->
+        {#if data.hashtagIntro}
             <TopicIntro />
         {/if}
 
