@@ -2,6 +2,9 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs').promises;
+const path = require('path');
+const { marked } = require('marked');
 const SubstackSyncEngine = require('./SubstackSyncEngine');
 
 const app = express();
@@ -10,6 +13,10 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from public directory
+const publicPath = path.join(__dirname, '../../public');
+app.use('/images', express.static(path.join(publicPath, 'images')));
 
 // Initialize sync engine
 const substackUrl = process.env.SUBSTACK_URL || 'https://yoursubstack.substack.com';
@@ -47,6 +54,7 @@ app.get('/', (req, res) => {
       articlesWithHashtag: '/api/articles?hashtag=YourHashtag',
       search: '/api/articles?search=keyword',
       hashtags: '/api/hashtags',
+      hashtagIntro: '/api/hashtag-intro/:hashtag',
       sync: 'POST /api/sync'
     },
     stats: {
@@ -112,6 +120,43 @@ app.post('/api/sync', async (req, res) => {
       success: false,
       error: error.message
     });
+  }
+});
+
+// Get markdown content for a hashtag
+app.get('/api/hashtag-intro/:hashtag', async (req, res) => {
+  try {
+    const { hashtag } = req.params;
+    const markdownDir = path.join(__dirname, '../../markdown');
+    const markdownPath = path.join(markdownDir, `${hashtag}.md`);
+
+    try {
+      // Check if file exists
+      await fs.access(markdownPath);
+
+      // Read and parse markdown
+      const markdownContent = await fs.readFile(markdownPath, 'utf8');
+      let htmlContent = marked(markdownContent);
+
+      // Fix relative image paths to use the API server
+      htmlContent = htmlContent.replace(/src="\.\/images\//g, 'src="http://localhost:3000/images/');
+      htmlContent = htmlContent.replace(/src="images\//g, 'src="http://localhost:3000/images/');
+
+      res.json({
+        exists: true,
+        hashtag,
+        markdown: markdownContent,
+        html: htmlContent
+      });
+    } catch (error) {
+      // File doesn't exist or can't be read
+      res.json({
+        exists: false,
+        hashtag
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 

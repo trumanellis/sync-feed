@@ -32,7 +32,7 @@
         .sidebar {
             flex-shrink: 0;
             width: 320px;
-            background: rgba(27, 67, 50, 0.95);
+            background: #000000;
             border-right: 1px solid rgba(212, 175, 55, 0.3);
             box-shadow: 4px 0 30px rgba(212, 175, 55, 0.15);
             overflow-y: auto;
@@ -124,6 +124,390 @@
             color: #D4AF37;
             text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
         }
+        .topic-intro {
+            margin-bottom: 2rem;
+            padding: 0;
+        }
+        .topic-intro h1 {
+            color: #D4AF37;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .topic-intro h2 {
+            color: #D4AF37;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .topic-intro h3 {
+            color: #84A98C;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .topic-intro p {
+            color: #F7F3E9;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        .topic-intro a {
+            color: #D4AF37;
+            text-decoration: underline;
+            transition: all 0.2s ease;
+        }
+        .topic-intro a:hover {
+            color: #F4B942;
+            text-shadow: 0 0 10px rgba(244, 185, 66, 0.5);
+        }
+        .topic-intro ul, .topic-intro ol {
+            color: #F7F3E9;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .topic-intro li {
+            margin-bottom: 0.5rem;
+        }
+        .topic-intro blockquote {
+            border-left: 4px solid rgba(212, 175, 55, 0.5);
+            padding-left: 1rem;
+            margin-left: 0;
+            margin-bottom: 1rem;
+            color: #84A98C;
+            font-style: italic;
+        }
+        .topic-intro code {
+            background: rgba(0, 0, 0, 0.3);
+            color: #F4B942;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+        }
+        .topic-intro pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+        .topic-intro pre code {
+            background: none;
+            padding: 0;
+        }
+        /* Card styles for markdown content */
+        .topic-intro .md-card {
+            background: rgba(27, 67, 50, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+            transition: all 0.3s ease;
+        }
+        .topic-intro .md-card:hover {
+            border-color: rgba(212, 175, 55, 0.6);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.25);
+            transform: translateY(-2px);
+        }
+        .topic-intro .md-card-title {
+            color: #D4AF37;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        .topic-intro .md-card-text {
+            color: #F7F3E9;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+        /* Grid layout for cards */
+        .topic-intro .md-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .topic-intro .md-card-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .topic-intro .md-card-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        /* Highlight card */
+        .topic-intro .md-card-highlight {
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+        }
+        .topic-intro .md-card-highlight:hover {
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.35);
+        }
+        /* Subtle card */
+        .topic-intro .md-card-subtle {
+            background: rgba(27, 67, 50, 0.3);
+            border: 1px solid rgba(132, 169, 140, 0.3);
+        }
+        /* Icon in card */
+        .topic-intro .md-card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        /* Badge style */
+        .topic-intro .md-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.25);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: #F7F3E9;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            margin: 0.25rem;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+        /* Alert/Notice box */
+        .topic-intro .md-notice {
+            background: rgba(45, 90, 61, 0.4);
+            border-left: 4px solid #84A98C;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.5rem;
+        }
+        .topic-intro .md-notice-warning {
+            background: rgba(212, 175, 55, 0.15);
+            border-left: 4px solid #D4AF37;
+        }
+        /* Image Cards - Match Substack card styling */
+        .topic-intro .md-card-image {
+            background: rgba(27, 67, 50, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .topic-intro .md-card-image:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212, 175, 55, 0.6);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.3),
+                        0 0 60px rgba(132, 169, 140, 0.2),
+                        0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+        .topic-intro .md-card-image-wrapper {
+            position: relative;
+        }
+        .topic-intro .md-card-image-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            pointer-events: none;
+        }
+        .topic-intro .md-card-image img {
+            width: 100%;
+            height: 192px;
+            object-fit: cover;
+            display: block;
+        }
+        .topic-intro .md-card-image-tall img {
+            height: 280px;
+        }
+        .topic-intro .md-card-image-short img {
+            height: 150px;
+        }
+        .topic-intro .md-card-image-content {
+            padding: 1.25rem;
+        }
+        .topic-intro .md-card-image-title {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0;
+            transition: all 0.3s ease;
+            z-index: 2;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+        }
+        .topic-intro .md-card-image:hover .md-card-image-title {
+            color: #D4AF37;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.6),
+                         0 2px 8px rgba(0, 0, 0, 0.8);
+        }
+        .topic-intro .md-card-image-text {
+            color: #F7F3E9;
+            font-size: 0.875rem;
+            line-height: 1.7;
+            margin-bottom: 0.5rem;
+        }
+        .topic-intro .md-card-image-link {
+            color: #D4AF37;
+            text-decoration: none;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+            transition: all 0.2s ease;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        .topic-intro .md-card-image-link:hover {
+            color: #F4B942;
+            text-shadow: 0 0 20px rgba(244, 185, 66, 0.8);
+        }
+        /* Image overlay effect */
+        .topic-intro .md-card-image-overlay {
+            position: relative;
+        }
+        .topic-intro .md-card-image-overlay::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top, rgba(10, 14, 20, 0.9), transparent);
+            pointer-events: none;
+        }
+        .topic-intro .md-card-image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 1.5rem;
+            color: #F7F3E9;
+            font-size: 0.875rem;
+            z-index: 1;
+        }
+
+        /* Responsive layout for tablets and mobile */
+        @media (max-width: 1024px) {
+            #app {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: sticky;
+                top: 0;
+                z-index: 999;
+                border-right: none;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding: 0.75rem 1rem;
+                gap: 1.5rem;
+            }
+
+            .main-content {
+                padding: 1.5rem;
+            }
+
+            .logo-container {
+                padding: 0;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 0.75rem;
+                border-bottom: none;
+                flex-shrink: 0;
+            }
+
+            .logo {
+                width: 50px;
+                height: 50px;
+                margin-bottom: 0;
+            }
+
+            .logo-container h2 {
+                font-size: 1rem;
+                text-align: left;
+                margin: 0;
+            }
+
+            .logo-container p {
+                display: none;
+            }
+
+            .sidebar-section {
+                padding: 0;
+                border-top: none !important;
+                display: flex;
+                flex-direction: row;
+                gap: 0.5rem;
+                align-items: center;
+                overflow-x: auto;
+                flex: 1;
+            }
+
+            .sidebar-section label {
+                display: none;
+            }
+
+            .sidebar-section .text-xs {
+                display: none;
+            }
+
+            .tag-button {
+                transform: none !important;
+                width: auto;
+                white-space: nowrap;
+                padding: 0.5rem 1rem !important;
+                margin-bottom: 0;
+                font-size: 0.875rem;
+            }
+
+            /* Hide stats section on mobile */
+            .sidebar-section:last-child {
+                display: none;
+            }
+        }
+
+        /* Mobile phone specific */
+        @media (max-width: 640px) {
+            .sidebar {
+                gap: 0.75rem;
+                padding: 0.5rem 0.75rem;
+            }
+
+            .logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logo-container h2 {
+                font-size: 0.875rem;
+            }
+
+            .tag-button {
+                padding: 0.4rem 0.75rem !important;
+                font-size: 0.75rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -138,6 +522,7 @@
         let selectedTag = 'all';
         let searchTerm = '';
         let isLoading = true;
+        let hashtagIntro = null;
 
         // Fetch data
         async function fetchArticles() {
@@ -160,11 +545,28 @@
             }
         }
 
+        // Fetch hashtag intro
+        async function fetchHashtagIntro(hashtag) {
+            if (hashtag === 'all') {
+                hashtagIntro = null;
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/hashtag-intro/${hashtag}`);
+                const data = await response.json();
+                hashtagIntro = data.exists ? data : null;
+            } catch (error) {
+                console.error('Failed to fetch hashtag intro:', error);
+                hashtagIntro = null;
+            }
+        }
+
         // Filter articles
         function getFilteredArticles() {
             return articles.filter(article => {
                 const matchesTag = selectedTag === 'all' || article.hashtags.includes(selectedTag);
-                const matchesSearch = searchTerm === '' || 
+                const matchesSearch = searchTerm === '' ||
                     article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                     article.subtitle.toLowerCase().includes(searchTerm.toLowerCase());
                 return matchesTag && matchesSearch;
@@ -193,21 +595,26 @@
             return tag.replace(/([A-Z])/g, ' $1').trim();
         }
 
+        // Select tag and fetch intro
+        async function selectTag(tag) {
+            selectedTag = tag;
+            await fetchHashtagIntro(tag);
+            render();
+        }
+
         // Render
         function render() {
             const filteredArticles = getFilteredArticles();
-            
+
             const html = `
                 <!-- Sidebar -->
                 <aside class="sidebar">
                     <!-- Logo -->
                     <div class="logo-container">
-                        <div class="logo flex items-center justify-center cursor-pointer" onclick="selectedTag = 'all'; render();">
-                            <svg class="w-full h-full" fill="none" stroke="#D4AF37" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
+                        <div class="logo flex items-center justify-center cursor-pointer" onclick="selectTag('all');">
+                            <img src="http://localhost:3000/images/glowing-eye.png" alt="Synchronicity Engine" class="w-full h-full object-contain" />
                         </div>
-                        <h2 class="text-xl font-bold text-center cursor-pointer" style="color: #D4AF37; text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);" onclick="selectedTag = 'all'; render();">Synchronicity Engine</h2>
+                        <h2 class="text-xl font-bold text-center cursor-pointer" style="color: #D4AF37; text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);" onclick="selectTag('all');">Synchronicity Engine</h2>
                         <p class="text-sm text-center mt-1" style="color: #84A98C;">Aeon Myths</p>
                     </div>
 
@@ -218,7 +625,7 @@
                             const count = articles.filter(a => a.hashtags.includes(tag)).length;
                             return `
                                 <button
-                                    onclick="selectedTag = '${tag}'; render();"
+                                    onclick="selectTag('${tag}');"
                                     class="tag-button ${selectedTag === tag ? 'active' : ''} px-3 py-2 rounded-lg text-sm font-medium"
                                     style="color: #F7F3E9;"
                                 >
@@ -241,6 +648,11 @@
 
                 <!-- Main Content -->
                 <main class="main-content">
+                        ${hashtagIntro && hashtagIntro.exists ? `
+                            <div class="topic-intro">
+                                ${hashtagIntro.html}
+                            </div>
+                        ` : ''}
                         ${isLoading ? `
                             <div class="text-center py-20">
                                 <div class="animate-spin rounded-full h-16 w-16 border-b-2 mx-auto mb-4" style="border-color: #D4AF37;"></div>
@@ -251,6 +663,7 @@
                                 <p class="text-gray-400 text-lg">No articles found matching your criteria.</p>
                             </div>
                         ` : `
+                            <h2 class="text-2xl font-bold mb-6" style="color: #D4AF37; text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);">Further Reading</h2>
                             <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                                 ${filteredArticles.map(article => `
                                     <div class="card-hover backdrop-blur-sm rounded-xl overflow-hidden">
