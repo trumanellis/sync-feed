@@ -314,3 +314,309 @@
     font-size: 0.875rem;
     z-index: 1;
 }
+
+/* ===== Styles for HTML topic files (AguaLila.html, synchronicity.html, etc.) ===== */
+
+/* Reset and base styling for HTML content */
+.topic-html {
+    color: #F7F3E9;
+    font-family: 'Exo', sans-serif;
+    line-height: 1.7;
+}
+
+/* Hide elements that shouldn't be displayed in the embedded context */
+.topic-html nav,
+.topic-html footer,
+.topic-html .nav,
+.topic-html .footer {
+    display: none;
+}
+
+/* Hero section styling */
+.topic-html .hero {
+    background: transparent;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+}
+
+.topic-html .hero-container {
+    max-width: 100%;
+    text-align: center;
+}
+
+.topic-html .hero-badge {
+    display: inline-block;
+    background: rgba(212, 175, 55, 0.25);
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    color: #F7F3E9;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.topic-html .hero h1 {
+    color: #D4AF37;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+}
+
+.topic-html .hero-subtitle {
+    color: #84A98C;
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+}
+
+.topic-html .hero-description {
+    color: #F7F3E9;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* Section and container styling */
+.topic-html .section {
+    padding: 1.5rem 0;
+    margin-bottom: 1.5rem;
+}
+
+.topic-html .container {
+    max-width: 100%;
+}
+
+/* Card styling */
+.topic-html .card {
+    background: rgba(27, 67, 50, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+    transition: all 0.3s ease;
+}
+
+.topic-html .card:hover {
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.25);
+    transform: translateY(-2px);
+}
+
+/* Section heading */
+.topic-html .section-heading {
+    color: #D4AF37;
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+/* Body text */
+.topic-html .body-text {
+    color: #F7F3E9;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+/* Feature grid */
+.topic-html .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.topic-html .feature-card {
+    background: rgba(45, 90, 61, 0.4);
+    border: 1px solid rgba(132, 169, 140, 0.3);
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    transition: all 0.3s ease;
+}
+
+.topic-html .feature-card:hover {
+    background: rgba(45, 90, 61, 0.6);
+    border-color: rgba(132, 169, 140, 0.5);
+    transform: translateY(-4px);
+}
+
+.topic-html .feature-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+/* Sacred highlight box */
+.topic-html .sacred-highlight {
+    background: rgba(212, 175, 55, 0.15);
+    border: 2px solid rgba(212, 175, 55, 0.5);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+}
+
+/* Process steps */
+.topic-html .process-step {
+    background: rgba(27, 67, 50, 0.3);
+    border-left: 4px solid #84A98C;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.5rem;
+}
+
+.topic-html .process-step h4 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+/* Daily example boxes */
+.topic-html .daily-example {
+    background: rgba(45, 90, 61, 0.3);
+    border: 1px solid rgba(132, 169, 140, 0.3);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.topic-html .daily-example h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* Lists */
+.topic-html ul,
+.topic-html ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+    color: #F7F3E9;
+}
+
+.topic-html li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+/* Buttons */
+.topic-html .btn-primary,
+.topic-html .btn-secondary {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.topic-html .btn-primary {
+    background: rgba(212, 175, 55, 0.9);
+    color: #0A0E14;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+.topic-html .btn-primary:hover {
+    background: rgba(244, 185, 66, 1);
+    box-shadow: 0 0 30px rgba(244, 185, 66, 0.6);
+    transform: translateY(-2px);
+}
+
+.topic-html .btn-secondary {
+    background: rgba(27, 67, 50, 0.8);
+    color: #D4AF37;
+    border-color: rgba(212, 175, 55, 0.5);
+}
+
+.topic-html .btn-secondary:hover {
+    background: rgba(45, 90, 61, 0.9);
+    border-color: rgba(212, 175, 55, 0.8);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Blockquotes */
+.topic-html blockquote {
+    border-left: 4px solid rgba(212, 175, 55, 0.5);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    color: #84A98C;
+    font-style: italic;
+    background: rgba(27, 67, 50, 0.3);
+    padding: 1rem 1rem 1rem 1.5rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* Philosophy quote */
+.topic-html .philosophy-quote {
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+    margin: 1.5rem 0;
+    text-align: center;
+    font-style: italic;
+    color: #F7F3E9;
+}
+
+/* Links */
+.topic-html a {
+    color: #D4AF37;
+    transition: all 0.2s ease;
+}
+
+.topic-html a:hover {
+    color: #F4B942;
+    text-shadow: 0 0 10px rgba(244, 185, 66, 0.5);
+}
+
+/* Remove animations in embedded context */
+.topic-html .animate-cascade,
+.topic-html .blessing-particle {
+    animation: none !important;
+    opacity: 1 !important;
+}
+
+/* Headings inside cards */
+.topic-html h2 {
+    color: #D4AF37;
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.topic-html h3 {
+    color: #84A98C;
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.topic-html h4 {
+    color: #D4AF37;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* Paragraphs */
+.topic-html p {
+    color: #F7F3E9;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+/* Strong text */
+.topic-html strong {
+    color: #D4AF37;
+    font-weight: 600;
+}
+
+/* Emphasis */
+.topic-html em {
+    color: #84A98C;
+    font-style: italic;
+}
