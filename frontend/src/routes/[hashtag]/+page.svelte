@@ -29,7 +29,52 @@
 <div class="app-container">
     <Sidebar />
     <main class="main-content">
-        <TopicIntro />
-        <ArticleGrid />
+        <!-- Render HTML content if available -->
+        {#if data.htmlContent}
+            <div class="html-content">
+                {@html data.htmlContent}
+            </div>
+        {/if}
+
+        <!-- Render markdown content if available -->
+        {#if data.markdownContent}
+            <div class="markdown-content prose prose-invert max-w-none">
+                {@html data.markdownContent}
+            </div>
+        {/if}
+
+        <!-- Render topic intro if available -->
+        {#if data.hashtagIntro}
+            <TopicIntro />
+        {/if}
+
+        <!-- Render article grid if articles are available -->
+        {#if data.articles && data.articles.length > 0}
+            <ArticleGrid />
+        {/if}
+
+        <!-- Show message if no content at all -->
+        {#if !data.htmlContent && !data.markdownContent && !data.hashtagIntro && (!data.articles || data.articles.length === 0)}
+            <div class="no-content">
+                <p>No content available for this topic yet.</p>
+            </div>
+        {/if}
     </main>
 </div>
+
+<style>
+    .html-content {
+        margin-bottom: 2rem;
+    }
+
+    .markdown-content {
+        margin-bottom: 2rem;
+        padding: 1rem;
+    }
+
+    .no-content {
+        padding: 4rem 2rem;
+        text-align: center;
+        color: #84A98C;
+    }
+</style>

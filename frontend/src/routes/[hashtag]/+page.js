@@ -7,29 +7,32 @@ export async function load({ params, fetch }) {
     const { hashtag } = params;
 
     try {
-        // Fetch all data in parallel using absolute URLs
-        const [articlesRes, hashtagsRes, hashtagIntroRes] = await Promise.all([
+        // Fetch all possible content sources in parallel
+        const [articlesRes, hashtagsRes, hashtagIntroRes, htmlContentRes, markdownContentRes] = await Promise.all([
             fetch(`${API_URL}/api/articles`),
             fetch(`${API_URL}/api/hashtags`),
-            fetch(`${API_URL}/api/hashtag-intro/${hashtag}`)
+            fetch(`${API_URL}/api/hashtag-intro/${hashtag}`),
+            fetch(`${API_URL}/api/html-content/${hashtag}`),
+            fetch(`${API_URL}/api/markdown-content/${hashtag}`)
         ]);
 
-        if (!articlesRes.ok || !hashtagsRes.ok || !hashtagIntroRes.ok) {
-            throw error(500, {
-                message: 'Failed to fetch data from API'
-            });
-        }
+        // Parse responses - don't fail if optional content is missing
+        const articlesData = articlesRes.ok ? await articlesRes.json() : [];
+        const hashtagsData = hashtagsRes.ok ? await hashtagsRes.json() : [];
+        const hashtagIntroData = hashtagIntroRes.ok ? await hashtagIntroRes.json() : null;
+        const htmlContent = htmlContentRes.ok ? await htmlContentRes.json() : null;
+        const markdownContent = markdownContentRes.ok ? await markdownContentRes.json() : null;
 
-        const [articlesData, hashtagsData, hashtagIntroData] = await Promise.all([
-            articlesRes.json(),
-            hashtagsRes.json(),
-            hashtagIntroRes.json()
-        ]);
+        // Check if ANY content exists for this hashtag
+        const hasArticles = articlesData.some(article => article.hashtags.includes(hashtag));
+        const hasHtml = htmlContent && htmlContent.content;
+        const hasMarkdown = markdownContent && markdownContent.content;
+        const hasIntro = hashtagIntroData && hashtagIntroData.content;
 
-        // Check if the hashtag exists
-        if (!hashtagsData.includes(hashtag)) {
+        // If no content exists at all, throw 404
+        if (!hasArticles && !hasHtml && !hasMarkdown && !hasIntro) {
             throw error(404, {
-                message: `Topic "${hashtag}" not found`
+                message: `Topic "${hashtag}" not found - no content available`
             });
         }
 
@@ -43,7 +46,9 @@ export async function load({ params, fetch }) {
             articles: filteredArticles,
             allHashtags: hashtagsData,
             hashtagIntro: hashtagIntroData,
-            allArticles: articlesData
+            allArticles: articlesData,
+            htmlContent: htmlContent?.content || null,
+            markdownContent: markdownContent?.content || null
         };
     } catch (err) {
         if (err.status === 404) {

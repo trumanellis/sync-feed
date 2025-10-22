@@ -126,7 +126,73 @@ app.post('/api/sync', async (req, res) => {
   }
 });
 
-// Get HTML and markdown content for a hashtag
+// Get HTML content for a hashtag (full HTML file)
+app.get('/api/html-content/:hashtag', async (req, res) => {
+  try {
+    const { hashtag } = req.params;
+    const htmlDir = path.join(__dirname, '../../html');
+    const htmlPath = path.join(htmlDir, `${hashtag}.html`);
+
+    try {
+      await fs.access(htmlPath);
+      const htmlContent = await fs.readFile(htmlPath, 'utf8');
+
+      // Extract just the main content (everything inside <main> tag if it exists)
+      const mainMatch = htmlContent.match(/<main[^>]*>([\s\S]*?)<\/main>/i);
+      const content = mainMatch ? mainMatch[1] : htmlContent;
+
+      res.json({
+        exists: true,
+        hashtag,
+        content
+      });
+    } catch (error) {
+      res.status(404).json({
+        exists: false,
+        hashtag,
+        content: null
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get markdown content for a hashtag (rendered to HTML)
+app.get('/api/markdown-content/:hashtag', async (req, res) => {
+  try {
+    const { hashtag } = req.params;
+    const markdownDir = path.join(__dirname, '../../markdown');
+    const markdownPath = path.join(markdownDir, `${hashtag}.md`);
+
+    try {
+      await fs.access(markdownPath);
+      const markdownRaw = await fs.readFile(markdownPath, 'utf8');
+      let markdownHtml = marked(markdownRaw);
+
+      // Fix relative image paths to use the API server
+      markdownHtml = markdownHtml.replace(/src="\.\/images\//g, 'src="http://localhost:3000/images/');
+      markdownHtml = markdownHtml.replace(/src="images\//g, 'src="http://localhost:3000/images/');
+
+      res.json({
+        exists: true,
+        hashtag,
+        content: markdownHtml,
+        raw: markdownRaw
+      });
+    } catch (error) {
+      res.status(404).json({
+        exists: false,
+        hashtag,
+        content: null
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get HTML and markdown content for a hashtag (legacy intro endpoint)
 app.get('/api/hashtag-intro/:hashtag', async (req, res) => {
   try {
     const { hashtag } = req.params;
@@ -167,7 +233,8 @@ app.get('/api/hashtag-intro/:hashtag', async (req, res) => {
       hashtag,
       htmlFile: htmlFileContent,
       markdown: markdownRawContent,
-      html: markdownHtmlContent
+      html: markdownHtmlContent,
+      content: markdownHtmlContent // For backwards compatibility
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
