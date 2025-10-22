@@ -1,8 +1,7 @@
 <script>
     import Sidebar from '$lib/components/Sidebar.svelte';
-    import TopicIntro from '$lib/components/TopicIntro.svelte';
     import ArticleGrid from '$lib/components/ArticleGrid.svelte';
-    import { articles, allHashtags, selectedTag, hashtagIntro, isLoading } from '$lib/stores/articles';
+    import { articles, allHashtags, selectedTag, isLoading } from '$lib/stores/articles';
     import { formatHashtag } from '$lib/utils/formatters';
 
     /** @type {import('./$types').PageData} */
@@ -14,7 +13,6 @@
         articles.set(data.allArticles);
         allHashtags.set(data.allHashtags);
         selectedTag.set(data.hashtag);
-        hashtagIntro.set(data.hashtagIntro);
     }
 </script>
 
@@ -43,18 +41,13 @@
             </div>
         {/if}
 
-        <!-- Render legacy topic intro if available -->
-        {#if data.hashtagIntro}
-            <TopicIntro />
-        {/if}
-
         <!-- Render article grid if articles are available -->
         {#if data.articles && data.articles.length > 0}
             <ArticleGrid />
         {/if}
 
         <!-- Show message if no content at all -->
-        {#if !data.htmlContent && !data.markdownContent && !data.hashtagIntro && (!data.articles || data.articles.length === 0)}
+        {#if !data.htmlContent && !data.markdownContent && (!data.articles || data.articles.length === 0)}
             <div class="no-content">
                 <p>No content available for this topic yet.</p>
             </div>

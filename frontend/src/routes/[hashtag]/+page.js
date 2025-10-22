@@ -8,10 +8,9 @@ export async function load({ params, fetch }) {
 
     try {
         // Fetch all possible content sources in parallel
-        const [articlesRes, hashtagsRes, hashtagIntroRes, htmlContentRes, markdownContentRes] = await Promise.all([
+        const [articlesRes, hashtagsRes, htmlContentRes, markdownContentRes] = await Promise.all([
             fetch(`${API_URL}/api/articles`),
             fetch(`${API_URL}/api/hashtags`),
-            fetch(`${API_URL}/api/hashtag-intro/${hashtag}`),
             fetch(`${API_URL}/api/html-content/${hashtag}`),
             fetch(`${API_URL}/api/markdown-content/${hashtag}`)
         ]);
@@ -19,7 +18,6 @@ export async function load({ params, fetch }) {
         // Parse responses - don't fail if optional content is missing
         const articlesData = articlesRes.ok ? await articlesRes.json() : [];
         const hashtagsData = hashtagsRes.ok ? await hashtagsRes.json() : [];
-        const hashtagIntroData = hashtagIntroRes.ok ? await hashtagIntroRes.json() : null;
         const htmlContent = htmlContentRes.ok ? await htmlContentRes.json() : null;
         const markdownContent = markdownContentRes.ok ? await markdownContentRes.json() : null;
 
@@ -27,10 +25,9 @@ export async function load({ params, fetch }) {
         const hasArticles = articlesData.some(article => article.hashtags.includes(hashtag));
         const hasHtml = htmlContent && htmlContent.content;
         const hasMarkdown = markdownContent && markdownContent.content;
-        const hasIntro = hashtagIntroData && hashtagIntroData.content;
 
         // If no content exists at all, throw 404
-        if (!hasArticles && !hasHtml && !hasMarkdown && !hasIntro) {
+        if (!hasArticles && !hasHtml && !hasMarkdown) {
             throw error(404, {
                 message: `Topic "${hashtag}" not found - no content available`
             });
@@ -45,7 +42,6 @@ export async function load({ params, fetch }) {
             hashtag,
             articles: filteredArticles,
             allHashtags: hashtagsData,
-            hashtagIntro: hashtagIntroData,
             allArticles: articlesData,
             htmlContent: htmlContent?.content || null,
             markdownContent: markdownContent?.content || null
