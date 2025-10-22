@@ -126,38 +126,49 @@ app.post('/api/sync', async (req, res) => {
   }
 });
 
-// Get markdown content for a hashtag
+// Get HTML and markdown content for a hashtag
 app.get('/api/hashtag-intro/:hashtag', async (req, res) => {
   try {
     const { hashtag } = req.params;
+    const htmlDir = path.join(__dirname, '../../html');
     const markdownDir = path.join(__dirname, '../../markdown');
+    const htmlPath = path.join(htmlDir, `${hashtag}.html`);
     const markdownPath = path.join(markdownDir, `${hashtag}.md`);
 
-    try {
-      // Check if file exists
-      await fs.access(markdownPath);
+    let htmlFileContent = null;
+    let markdownHtmlContent = null;
+    let markdownRawContent = null;
 
-      // Read and parse markdown
-      const markdownContent = await fs.readFile(markdownPath, 'utf8');
-      let htmlContent = marked(markdownContent);
+    // Try to read HTML file
+    try {
+      await fs.access(htmlPath);
+      htmlFileContent = await fs.readFile(htmlPath, 'utf8');
+    } catch (error) {
+      // HTML file doesn't exist, that's okay
+    }
+
+    // Try to read markdown file
+    try {
+      await fs.access(markdownPath);
+      markdownRawContent = await fs.readFile(markdownPath, 'utf8');
+      markdownHtmlContent = marked(markdownRawContent);
 
       // Fix relative image paths to use the API server
-      htmlContent = htmlContent.replace(/src="\.\/images\//g, 'src="http://localhost:3000/images/');
-      htmlContent = htmlContent.replace(/src="images\//g, 'src="http://localhost:3000/images/');
-
-      res.json({
-        exists: true,
-        hashtag,
-        markdown: markdownContent,
-        html: htmlContent
-      });
+      markdownHtmlContent = markdownHtmlContent.replace(/src="\.\/images\//g, 'src="http://localhost:3000/images/');
+      markdownHtmlContent = markdownHtmlContent.replace(/src="images\//g, 'src="http://localhost:3000/images/');
     } catch (error) {
-      // File doesn't exist or can't be read
-      res.json({
-        exists: false,
-        hashtag
-      });
+      // Markdown file doesn't exist, that's okay
     }
+
+    // Return response
+    const exists = htmlFileContent !== null || markdownHtmlContent !== null;
+    res.json({
+      exists,
+      hashtag,
+      htmlFile: htmlFileContent,
+      markdown: markdownRawContent,
+      html: markdownHtmlContent
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

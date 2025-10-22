@@ -1,16 +1,29 @@
 import { error } from '@sveltejs/kit';
-import { fetchArticles, fetchHashtags, fetchHashtagIntro } from '$lib/utils/api';
+
+const API_URL = 'http://localhost:3000';
 
 /** @type {import('./$types').PageLoad} */
-export async function load({ params }) {
+export async function load({ params, fetch }) {
     const { hashtag } = params;
 
     try {
-        // Fetch all data in parallel
+        // Fetch all data in parallel using absolute URLs
+        const [articlesRes, hashtagsRes, hashtagIntroRes] = await Promise.all([
+            fetch(`${API_URL}/api/articles`),
+            fetch(`${API_URL}/api/hashtags`),
+            fetch(`${API_URL}/api/hashtag-intro/${hashtag}`)
+        ]);
+
+        if (!articlesRes.ok || !hashtagsRes.ok || !hashtagIntroRes.ok) {
+            throw error(500, {
+                message: 'Failed to fetch data from API'
+            });
+        }
+
         const [articlesData, hashtagsData, hashtagIntroData] = await Promise.all([
-            fetchArticles(),
-            fetchHashtags(),
-            fetchHashtagIntro(hashtag)
+            articlesRes.json(),
+            hashtagsRes.json(),
+            hashtagIntroRes.json()
         ]);
 
         // Check if the hashtag exists

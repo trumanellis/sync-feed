@@ -2,7 +2,7 @@
     import Sidebar from '$lib/components/Sidebar.svelte';
     import TopicIntro from '$lib/components/TopicIntro.svelte';
     import ArticleGrid from '$lib/components/ArticleGrid.svelte';
-    import { articles, allHashtags, selectedTag, hashtagIntro } from '$lib/stores/articles';
+    import { articles, allHashtags, selectedTag, hashtagIntro, isLoading } from '$lib/stores/articles';
     import { formatHashtag } from '$lib/utils/formatters';
 
     /** @type {import('./$types').PageData} */
@@ -10,6 +10,7 @@
 
     // Reactively update stores whenever data changes (on navigation)
     $: {
+        isLoading.set(false);
         articles.set(data.allArticles);
         allHashtags.set(data.allHashtags);
         selectedTag.set(data.hashtag);
