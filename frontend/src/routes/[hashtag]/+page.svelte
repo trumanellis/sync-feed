@@ -31,7 +31,7 @@
     <main class="main-content">
         <!-- Render HTML content if available -->
         {#if data.htmlContent}
-            <div class="html-content">
+            <div class="html-content topic-html">
                 {@html data.htmlContent}
             </div>
         {/if}
