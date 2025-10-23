@@ -1,7 +1,7 @@
 /* Card hover effect */
 .card-hover {
     transition: all 0.3s ease;
-    background: rgba(27, 67, 50, 0.4);
+    background: rgba(45, 106, 79, 0.4);
     border: 1px solid rgba(212, 175, 55, 0.3);
     box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
 }
@@ -17,7 +17,7 @@
 /* Tag button */
 .tag-button {
     transition: all 0.2s ease;
-    background: rgba(27, 67, 50, 0.6);
+    background: rgba(45, 106, 79, 0.6);
     border: 1px solid rgba(212, 175, 55, 0.3);
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
     width: 100%;
@@ -28,7 +28,7 @@
 .tag-button:hover {
     transform: translateX(4px);
     box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-    background: rgba(45, 90, 61, 0.6);
+    background: rgba(82, 121, 111, 0.6);
 }
 
 .tag-button.active {
