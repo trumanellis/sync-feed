@@ -20,6 +20,7 @@ app.use(express.json());
 // Serve static files from public directory
 const publicPath = path.join(__dirname, '../../public');
 app.use('/images', express.static(path.join(publicPath, 'images')));
+app.use('/mp4', express.static(path.join(publicPath, 'mp4')));
 
 // Initialize sync engine
 const substackUrl = process.env.SUBSTACK_URL || 'https://yoursubstack.substack.com';
