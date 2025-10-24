@@ -1,28 +1,18 @@
 <script>
-    import { onMount } from 'svelte';
-    import { articles, allHashtags, isLoading, hashtagIntro, selectedTag } from '$lib/stores/articles';
-    import { fetchArticles, fetchHashtags } from '$lib/utils/api';
     import Sidebar from '$lib/components/Sidebar.svelte';
-    import TopicIntro from '$lib/components/TopicIntro.svelte';
     import ArticleGrid from '$lib/components/ArticleGrid.svelte';
+    import { articles, allHashtags, selectedTag, isLoading } from '$lib/stores/articles';
 
-    onMount(async () => {
-        try {
-            isLoading.set(true);
-            const [articlesData, hashtagsData] = await Promise.all([
-                fetchArticles(),
-                fetchHashtags()
-            ]);
-            articles.set(articlesData);
-            allHashtags.set(hashtagsData);
-            selectedTag.set('all');
-            hashtagIntro.set(null);
-        } catch (error) {
-            console.error('Failed to fetch data:', error);
-        } finally {
-            isLoading.set(false);
-        }
-    });
+    /** @type {import('./$types').PageData} */
+    export let data;
+
+    // Reactively update stores whenever data changes
+    $: {
+        isLoading.set(false);
+        articles.set(data.allArticles);
+        allHashtags.set(data.allHashtags);
+        selectedTag.set('all');
+    }
 </script>
 
 <svelte:head>
@@ -36,7 +26,32 @@
 <div class="app-container">
     <Sidebar />
     <main class="main-content">
-        <TopicIntro />
+        <!-- Render HTML content if available -->
+        {#if data.htmlContent}
+            <div class="html-content topic-html">
+                {@html data.htmlContent}
+            </div>
+        {/if}
+
+        <!-- Render markdown content if available -->
+        {#if data.markdownContent}
+            <div class="markdown-content topic-intro">
+                {@html data.markdownContent}
+            </div>
+        {/if}
+
+        <!-- Render article grid -->
         <ArticleGrid />
     </main>
 </div>
+
+<style>
+    .html-content {
+        margin-bottom: 2rem;
+    }
+
+    .markdown-content {
+        margin-bottom: 2rem;
+        padding: 1rem;
+    }
+</style>
