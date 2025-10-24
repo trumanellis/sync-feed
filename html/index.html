@@ -5,6 +5,249 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creating Synchronicities | Synchronicity Engine</title>
     <meta name="description" content="A journey through the sacred cycle of intention, attention, and manifestation.">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0A0E14 0%, #1a2332 100%);
+            color: #F7F3E9;
+            font-family: 'Exo', 'Arial', sans-serif;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .scrolly-hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .scrolly-hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #D4AF37;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.8),
+                         0 0 60px rgba(212, 175, 55, 0.4);
+            margin-bottom: 1rem;
+        }
+
+        .scrolly-subtitle {
+            font-size: 1.25rem;
+            color: #84A98C;
+            font-weight: 500;
+        }
+
+        /* Journey Container */
+        .scrolly-journey {
+            position: relative;
+        }
+
+        /* Individual Step */
+        .scrolly-step {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 8rem;
+            position: relative;
+        }
+
+        /* Step Number */
+        .scrolly-number {
+            position: absolute;
+            top: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(45, 106, 79, 0.6);
+            border: 3px solid #D4AF37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #D4AF37;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6),
+                        0 0 60px rgba(132, 169, 140, 0.3);
+            z-index: 10;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Alternating Layouts */
+        .scrolly-step-left {
+            grid-template-areas: "image placeholder";
+        }
+
+        .scrolly-step-right {
+            grid-template-areas: "placeholder image";
+        }
+
+        /* Image Container with Overlay */
+        .scrolly-image {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.3),
+                        0 0 80px rgba(132, 169, 140, 0.2);
+            transition: all 0.5s ease;
+            grid-area: image;
+        }
+
+        .scrolly-image:hover {
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.5),
+                        0 0 100px rgba(132, 169, 140, 0.3);
+            transform: scale(1.02);
+        }
+
+        .scrolly-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Overlay Content on Image */
+        .scrolly-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top,
+                rgba(10, 14, 20, 0.95) 0%,
+                rgba(10, 14, 20, 0.85) 60%,
+                transparent 100%);
+            z-index: 5;
+        }
+
+        .scrolly-overlay h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #D4AF37;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.6),
+                         0 2px 8px rgba(0, 0, 0, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .scrolly-overlay p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #F7F3E9;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+        }
+
+        .scrolly-overlay strong {
+            color: #D4AF37;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Placeholder Image Container */
+        .scrolly-placeholder {
+            grid-area: placeholder;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(132, 169, 140, 0.2);
+            background: rgba(45, 106, 79, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scrolly-placeholder img {
+            width: 100%;
+            height: auto;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        .scrolly-placeholder:hover img {
+            opacity: 0.8;
+        }
+
+        /* Connector Line */
+        .scrolly-connector {
+            position: absolute;
+            bottom: -4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 4rem;
+            background: linear-gradient(to bottom,
+                                        rgba(212, 175, 55, 0.6),
+                                        rgba(212, 175, 55, 0));
+        }
+
+        .scrolly-step:last-child .scrolly-connector {
+            display: none;
+        }
+
+        /* Scroll Animation */
+        .scrolly-visible {
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .scrolly-hero h1 {
+                font-size: 2rem;
+            }
+
+            .scrolly-subtitle {
+                font-size: 1rem;
+            }
+
+            .scrolly-step {
+                grid-template-columns: 1fr;
+                grid-template-areas: "image" "placeholder" !important;
+                gap: 2rem;
+                margin-bottom: 5rem;
+            }
+
+            .scrolly-number {
+                top: -2rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.25rem;
+            }
+
+            .scrolly-overlay h2 {
+                font-size: 1.5rem;
+            }
+
+            .scrolly-overlay p {
+                font-size: 1rem;
+            }
+
+            main {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <main>
