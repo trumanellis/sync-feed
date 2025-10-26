@@ -4,7 +4,7 @@
     import '$lib/styles/base.css';
     import '$lib/styles/layout.css';
     import '$lib/styles/components.css';
-    import '$lib/styles/markdown.css'; // TODO: Rename to content.css after migration
+    import '$lib/styles/content.css';
     import '$lib/styles/responsive.css';
 </script>
 
