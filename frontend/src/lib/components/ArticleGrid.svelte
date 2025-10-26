@@ -13,7 +13,7 @@
         <p class="text-gray-400 text-lg">No articles found matching your criteria.</p>
     </div>
 {:else}
-    <h2 class="text-2xl font-bold mb-6" style="color: #D4AF37; text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);">
+    <h2 class="text-2xl font-bold mb-6 pt-8" style="color: #D4AF37; text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);">
         Further Reading
     </h2>
     <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">

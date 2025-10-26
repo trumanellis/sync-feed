@@ -762,6 +762,47 @@
     padding: 2rem;
 }
 
+/* Água Lila Section with Background Image */
+.topic-html .agua-lila-section {
+    position: relative;
+    background-image: url('/images/DSCF6734.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 4rem 2rem;
+    margin: 0 auto 4rem;
+    max-width: 100%;
+}
+
+.topic-html .agua-lila-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+                                rgba(0, 0, 0, 0.75) 0%,
+                                rgba(0, 0, 0, 0.65) 20%,
+                                rgba(0, 0, 0, 0.70) 50%,
+                                rgba(0, 0, 0, 0.65) 80%,
+                                rgba(0, 0, 0, 0.75) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.topic-html .agua-lila-section .vision-container {
+    position: relative;
+    z-index: 2;
+}
+
+@media (max-width: 768px) {
+    .topic-html .agua-lila-section {
+        background-attachment: scroll;
+        padding: 3rem 1.5rem;
+    }
+}
+
 .topic-html .vision-container {
     text-align: center;
 }
@@ -773,11 +814,11 @@
     color: #F7F3E9;
     padding: 0.5rem 1.5rem;
     border-radius: 2rem;
-    font-size: 0.875rem;
+    font-size: 1.35rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
     box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
 }
 
 .topic-html .vision-title {
@@ -874,18 +915,21 @@
 /* Hero Section */
 .topic-html .scrolly-hero {
     text-align: left;
-    padding: 2rem 2rem;
+    padding: 2rem 0;
     margin-bottom: 1rem;
     opacity: 1;
     transform: translateY(0);
     transition: all 0.8s ease;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .topic-html .scrolly-hero-content {
     position: relative;
-    width: 90%;
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
     background: transparent;
     border: 1px solid rgba(212, 175, 55, 0.3);
     border-radius: 1.5rem;
@@ -903,10 +947,11 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('http://localhost:3000/images/Helix.png');
+    background-image: url('/images/Helix.png');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     z-index: 0;
     opacity: 0.25;
 }
@@ -1227,6 +1272,10 @@
     .topic-html .main-hero .hero-description {
         font-size: 1.1rem;
         line-height: 1.7;
+    }
+
+    .topic-html .scrolly-hero-content::before {
+        background-attachment: scroll;
     }
 
     .topic-html .scrolly-hero h1,

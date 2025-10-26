@@ -41,7 +41,9 @@
         {/if}
 
         <!-- Render article grid -->
-        <ArticleGrid />
+        <div class="article-grid-section">
+            <ArticleGrid />
+        </div>
     </main>
 </div>
 
@@ -53,5 +55,9 @@
     .markdown-content {
         margin-bottom: 2rem;
         padding: 1rem;
+    }
+
+    .article-grid-section {
+        padding-top: 3rem;
     }
 </style>

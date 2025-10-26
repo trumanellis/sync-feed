@@ -28,7 +28,7 @@
         {#each $allHashtags as tag}
             <button
                 on:click={() => handleTagClick(tag)}
-                class="tag-button {$selectedTag === tag ? 'active' : ''} px-3 py-2 rounded-lg text-sm font-medium"
+                class="tag-button {$selectedTag === tag ? 'active' : ''} text-sm"
                 style="color: #F7F3E9;"
             >
                 {formatHashtag(tag)}

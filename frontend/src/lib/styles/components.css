@@ -14,27 +14,64 @@
                 0 20px 40px rgba(0, 0, 0, 0.6);
 }
 
-/* Tag button */
+/* Tag button - elegant navigation link style */
 .tag-button {
-    transition: all 0.2s ease;
-    background: rgba(45, 106, 79, 0.6);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+    border: none;
+    border-left: 3px solid transparent;
+    box-shadow: none;
     width: 100%;
     text-align: left;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
+    padding: 0.75rem 1.5rem !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.tag-button::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: linear-gradient(90deg,
+        rgba(212, 175, 55, 0.15) 0%,
+        rgba(212, 175, 55, 0.05) 100%
+    );
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
 }
 
 .tag-button:hover {
-    transform: translateX(4px);
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-    background: rgba(82, 121, 111, 0.6);
+    transform: translateX(0);
+    box-shadow: none;
+    background: transparent;
+    border-left-color: rgba(212, 175, 55, 0.6);
+    color: #D4AF37 !important;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+.tag-button:hover::before {
+    width: 100%;
 }
 
 .tag-button.active {
-    background: rgba(212, 175, 55, 0.2);
-    border-color: rgba(212, 175, 55, 0.6);
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+    background: transparent;
+    border-left-color: #D4AF37;
+    box-shadow: none;
+    color: #D4AF37 !important;
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+    font-weight: 600;
+}
+
+.tag-button.active::before {
+    width: 100%;
+    background: linear-gradient(90deg,
+        rgba(212, 175, 55, 0.2) 0%,
+        rgba(212, 175, 55, 0.08) 100%
+    );
 }
 
 /* Image overlay */
