@@ -6,6 +6,9 @@
     import '$lib/styles/components.css';
     import '$lib/styles/content.css';
     import '$lib/styles/responsive.css';
+    import GradientBackground from '$lib/components/GradientBackground.svelte';
 </script>
+
+<GradientBackground logoSrc="/images/glowing-eye.png" />
 
 <slot />

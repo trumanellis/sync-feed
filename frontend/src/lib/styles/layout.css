@@ -12,16 +12,17 @@
 .main-content {
     flex: 1;
     min-height: 100vh;
-    padding: var(--space-xl);
+    padding: 34px;       /* Fibonacci number: 34px padding */
+    padding-left: 55px;  /* Fibonacci number: 55px left padding for golden ratio spacing */
     overflow-y: auto;
 }
 
 /* Container Widths */
 .container {
     width: 100%;
-    max-width: var(--container-xl);
+    max-width: 1597px;   /* Fibonacci number */
     margin: 0 auto;
-    padding: 0 var(--space-xl);
+    padding: 0 34px;     /* Fibonacci number */
 }
 
 .container--sm {

@@ -14,17 +14,20 @@
 
 <aside class="sidebar">
     <!-- Logo -->
-    <div class="logo-container">
+    <!-- <div class="logo-container">
         <div class="logo flex items-center justify-center cursor-pointer" on:click={() => handleTagClick('all')}>
             <img src="/images/glowing-eye.png" alt="Synchronicity Engine" class="w-full h-full object-contain" />
         </div>
-        <h2 class="text-xl font-bold text-center cursor-pointer" style="color: #D4AF37; text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);" on:click={() => handleTagClick('all')}>
+        <h2 class="text-xl font-bold text-center cursor-pointer" style="color: rgb(var(--color-gold)); text-shadow: 0 0 15px rgb(var(--color-gold-rgb) / 0.6);" on:click={() => handleTagClick('all')}>
             Synchronicity Engine
         </h2>
+    </div> -->
+    <div class="logo-container">
+        <div class="logo-placeholder"></div>
     </div>
 
     <!-- Hashtag filters -->
-    <div class="sidebar-section" style="border-top: 1px solid rgba(212, 175, 55, 0.3);">
+    <div class="sidebar-section" style="border-top: 1px solid rgb(var(--color-gold-rgb) / 0.3);">
         {#each $allHashtags as tag}
             <button
                 on:click={() => handleTagClick(tag)}
@@ -39,10 +42,11 @@
 <style>
     .sidebar {
         flex-shrink: 0;
-        width: 320px;
-        background: #000000;
-        border-right: 1px solid rgba(212, 175, 55, 0.3);
-        box-shadow: 4px 0 30px rgba(212, 175, 55, 0.15);
+        width: 233px;        /* Fibonacci number */
+        background: transparent;
+        backdrop-filter: blur(8px);
+        border-right: 1px solid rgb(var(--color-gold-rgb) / 0.3);
+        box-shadow: 4px 0 30px rgb(var(--color-gold-rgb) / 0.15);
         overflow-y: auto;
         position: sticky;
         top: 0;
@@ -53,14 +57,20 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 2rem 1rem;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        padding: 34px 21px;  /* Fibonacci: 34px top/bottom, 21px left/right */
+        border-bottom: 1px solid rgb(var(--color-gold-rgb) / 0.3);
     }
 
     .logo {
-        width: 120px;
-        height: 120px;
-        margin-bottom: 1rem;
+        width: 89px;         /* Fibonacci number */
+        height: 89px;        /* Fibonacci number */
+        margin-bottom: 21px; /* Fibonacci number */
+    }
+
+    .logo-placeholder {
+        width: 89px;         /* Fibonacci number */
+        height: 89px;        /* Fibonacci number */
+        background: transparent;
     }
 
     .sidebar-section {
@@ -76,7 +86,7 @@
             top: 0;
             z-index: 999;
             border-right: none;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            border-bottom: 1px solid rgb(var(--color-gold-rgb) / 0.3);
             display: flex;
             flex-direction: row;
             align-items: center;
