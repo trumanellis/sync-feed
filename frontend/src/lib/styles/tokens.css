@@ -1,0 +1,164 @@
+/* ===== Design Tokens - Synchronicity Engine ===== */
+/* Single source of truth for all design values */
+
+:root {
+  /* ===== Color Palette ===== */
+
+  /* Primary Colors */
+  --color-gold: #D4AF37;
+  --color-gold-light: #F4B942;
+  --color-gold-rgb: 212, 175, 55;
+
+  --color-sage: #2D6A4F;
+  --color-sage-rgb: 45, 106, 79;
+  --color-sage-medium: #52796F;
+  --color-sage-light: #84A98C;
+
+  --color-cream: #F7F3E9;
+  --color-black: #000000;
+  --color-dark: #0A0E14;
+
+  /* ===== Opacity Levels ===== */
+  --opacity-subtle: 0.22;
+  --opacity-light: 0.3;
+  --opacity-medium: 0.4;
+  --opacity-strong: 0.6;
+  --opacity-bold: 0.9;
+
+  /* ===== Spacing Scale ===== */
+  --space-xs: 0.25rem;    /* 4px */
+  --space-sm: 0.5rem;     /* 8px */
+  --space-md: 1rem;       /* 16px */
+  --space-lg: 1.5rem;     /* 24px */
+  --space-xl: 2rem;       /* 32px */
+  --space-2xl: 3rem;      /* 48px */
+  --space-3xl: 4rem;      /* 64px */
+  --space-4xl: 6rem;      /* 96px */
+
+  /* ===== Border Radius ===== */
+  --radius-sm: 0.5rem;    /* 8px */
+  --radius-md: 0.75rem;   /* 12px */
+  --radius-lg: 1rem;      /* 16px */
+  --radius-xl: 1.5rem;    /* 24px */
+  --radius-2xl: 2rem;     /* 32px */
+  --radius-pill: 50rem;   /* Full rounded */
+
+  /* ===== Typography Scale ===== */
+  --font-family: 'Exo', sans-serif;
+
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.15rem;    /* 18.4px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.35rem;   /* 21.6px - h3 */
+  --font-size-3xl: 1.5rem;    /* 24px */
+  --font-size-4xl: 1.75rem;   /* 28px */
+  --font-size-5xl: 2rem;      /* 32px - h2 */
+  --font-size-6xl: 2.5rem;    /* 40px - h1 */
+  --font-size-7xl: 3rem;      /* 48px */
+  --font-size-8xl: 3.5rem;    /* 56px */
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.6;
+  --line-height-relaxed: 1.7;
+  --line-height-loose: 1.8;
+
+  /* ===== Shadows ===== */
+
+  /* Glow Effects */
+  --shadow-glow-xs: 0 0 10px rgba(var(--color-gold-rgb), 0.2);
+  --shadow-glow-sm: 0 0 15px rgba(var(--color-gold-rgb), 0.3);
+  --shadow-glow-md: 0 0 20px rgba(var(--color-gold-rgb), 0.4);
+  --shadow-glow-lg: 0 0 30px rgba(var(--color-gold-rgb), 0.5);
+  --shadow-glow-xl: 0 0 40px rgba(var(--color-gold-rgb), 0.6);
+
+  /* Card Shadows */
+  --shadow-card-base: 0 0 20px rgba(var(--color-gold-rgb), 0.1);
+  --shadow-card-hover:
+    0 0 40px rgba(var(--color-gold-rgb), 0.3),
+    0 0 60px rgba(132, 169, 140, 0.2),
+    0 20px 40px rgba(0, 0, 0, 0.6);
+
+  /* Highlight Shadows */
+  --shadow-highlight:
+    0 0 40px rgba(var(--color-gold-rgb), 0.4),
+    0 0 60px rgba(132, 169, 140, 0.2);
+  --shadow-highlight-hover:
+    0 0 50px rgba(var(--color-gold-rgb), 0.5),
+    0 0 80px rgba(132, 169, 140, 0.3),
+    0 20px 40px rgba(0, 0, 0, 0.6);
+
+  /* ===== Text Shadows (Glow) ===== */
+  --text-shadow-glow-sm: 0 0 10px rgba(var(--color-gold-rgb), 0.4);
+  --text-shadow-glow-md: 0 0 15px rgba(var(--color-gold-rgb), 0.6);
+  --text-shadow-glow-lg:
+    0 0 30px rgba(var(--color-gold-rgb), 0.8),
+    0 0 60px rgba(var(--color-gold-rgb), 0.4);
+  --text-shadow-glow-xl:
+    0 0 40px rgba(var(--color-gold-rgb), 0.8),
+    0 0 80px rgba(var(--color-gold-rgb), 0.4),
+    0 0 120px rgba(132, 169, 140, 0.2);
+
+  /* Dark overlay for readability */
+  --text-shadow-dark: 0 2px 10px rgba(0, 0, 0, 0.9);
+
+  /* ===== Transitions ===== */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ===== Backgrounds ===== */
+  --bg-card: rgba(var(--color-sage-rgb), var(--opacity-subtle));
+  --bg-card-hover: rgba(var(--color-sage-medium-rgb), var(--opacity-medium));
+  --bg-highlight: rgba(var(--color-gold-rgb), 0.15);
+  --bg-badge: rgba(var(--color-gold-rgb), 0.25);
+  --bg-button-primary: rgba(var(--color-gold-rgb), var(--opacity-bold));
+  --bg-button-secondary: rgba(var(--color-sage-rgb), 0.33);
+
+  /* ===== Borders ===== */
+  --border-card: 1px solid rgba(var(--color-gold-rgb), 0.3);
+  --border-card-hover: 1px solid rgba(var(--color-gold-rgb), 0.6);
+  --border-highlight: 2px solid rgba(var(--color-gold-rgb), 0.5);
+  --border-badge: 1px solid rgba(var(--color-gold-rgb), 0.5);
+
+  /* ===== Gradients ===== */
+  --gradient-overlay-dark:
+    linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.75) 0%,
+      rgba(0, 0, 0, 0.65) 20%,
+      rgba(0, 0, 0, 0.70) 50%,
+      rgba(0, 0, 0, 0.65) 80%,
+      rgba(0, 0, 0, 0.75) 100%);
+
+  --gradient-image-overlay:
+    linear-gradient(to top, rgba(10, 14, 20, 0.9), transparent);
+
+  --gradient-progress:
+    linear-gradient(90deg, var(--color-gold), var(--color-sage-light));
+
+  /* ===== Z-Index Scale ===== */
+  --z-base: 0;
+  --z-overlay: 1;
+  --z-content: 2;
+  --z-sidebar: 10;
+  --z-header: 100;
+  --z-modal: 1000;
+
+  /* ===== Container Widths ===== */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1400px;
+
+  /* ===== Backdrop Blur ===== */
+  --blur-sm: blur(4px);
+  --blur-md: blur(8px);
+  --blur-lg: blur(25px);
+}

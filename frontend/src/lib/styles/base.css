@@ -1,0 +1,132 @@
+/* ===== Base Styles - Resets & Typography ===== */
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Base HTML & Body */
+html,
+body {
+    height: 100%;
+    overflow-x: hidden;
+    font-family: var(--font-family);
+    background: var(--color-black);
+    color: var(--color-cream);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-gold);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+}
+
+h1 {
+    font-size: var(--font-size-6xl);
+    text-shadow: var(--text-shadow-glow-lg);
+    margin-bottom: var(--space-xl);
+}
+
+h2 {
+    font-size: var(--font-size-5xl);
+    text-shadow: var(--text-shadow-glow-md);
+    margin-bottom: var(--space-lg);
+}
+
+h3 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-md);
+}
+
+h4 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-sm);
+}
+
+p {
+    color: var(--color-cream);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--space-md);
+}
+
+a {
+    color: var(--color-gold);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-gold-light);
+    text-shadow: var(--text-shadow-glow-sm);
+}
+
+strong {
+    color: var(--color-gold);
+    font-weight: var(--font-weight-semibold);
+}
+
+em {
+    color: var(--color-sage-light);
+    font-style: italic;
+}
+
+/* Lists */
+ul, ol {
+    margin-left: var(--space-lg);
+    margin-bottom: var(--space-md);
+    color: var(--color-cream);
+}
+
+li {
+    margin-bottom: var(--space-sm);
+    line-height: var(--line-height-normal);
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid rgba(var(--color-gold-rgb), 0.5);
+    padding-left: var(--space-lg);
+    margin: var(--space-lg) 0;
+    color: var(--color-sage-light);
+    font-style: italic;
+}
+
+/* Code */
+code {
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--color-gold-light);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-family: monospace;
+}
+
+pre {
+    background: rgba(0, 0, 0, 0.3);
+    padding: var(--space-md);
+    border-radius: var(--radius-sm);
+    overflow-x: auto;
+    margin-bottom: var(--space-md);
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Selection */
+::selection {
+    background: rgba(var(--color-gold-rgb), 0.3);
+    color: var(--color-cream);
+}
